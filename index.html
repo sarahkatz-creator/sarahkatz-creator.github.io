@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Sarah Katz is a full-stack engineer and writer in New York. Projects, experience, résumé and writing.">
+<meta property="og:title" content="Sarah Katz">
+<meta property="og:description" content="Sarah Katz is a full-stack engineer and writer in New York. Projects, experience, résumé and writing.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181c'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E">
+<title>Sarah Katz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column with a margin of sidenotes. The story of each project is told in the column; the technical facts sit in the sidenote beside it (stacked under it on phones). Plain sticky nav on top. */
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --fg: #17181c;
+  --muted: #5e616b;
+  --line: #e2e3e0;
+  --ink: #2340b3;
+  --ink-soft: #e8ecfb;
+  --del: #a3a6ae;
+  --ok: #24794a;
+  --wip: #a2620a;
+  --todo: #8a50c2;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121317; --surface: #191a1f; --fg: #e9e9ec; --muted: #9b9ea8; --line: #2a2c33;
+    --ink: #93a7ff; --ink-soft: #1f2540; --del: #63666f; --ok: #6fcf97; --wip: #f0b35a; --todo: #c9a3f2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121317; --surface: #191a1f; --fg: #e9e9ec; --muted: #9b9ea8; --line: #2a2c33;
+  --ink: #93a7ff; --ink-soft: #1f2540; --del: #63666f; --ok: #6fcf97; --wip: #f0b35a; --todo: #c9a3f2; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+p { margin: 0; }
+a { color: inherit; text-decoration-color: color-mix(in srgb, var(--ink) 55%, transparent); text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+
+.wrap { max-width: 1040px; margin: 0 auto; }
+
+/* Nav */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 14px; font-family: var(--font-sans); font-size: 0.92rem; }
+.name { font-weight: 600; text-decoration: none; }
+.nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover, .nav a.on { color: var(--fg); }
+.nav a.on { text-decoration: underline; text-decoration-color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+/* Hero */
+.hero { padding-block: clamp(56px, 10vw, 112px) clamp(48px, 7vw, 80px); }
+.hero h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.3rem, 6vw, 4.2rem); line-height: 1.08; letter-spacing: -0.02em; max-width: 17ch; }
+.hero h1 del { color: var(--del); text-decoration-thickness: 2px; text-decoration-color: var(--del); }
+.hero h1 ins { text-decoration: none; font-style: italic; color: var(--ink); position: relative; white-space: nowrap; }
+.hero h1 ins::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0.04em; height: 0.09em; background: var(--ink); opacity: 0.35; border-radius: 2px; }
+.hero .sub { font-family: var(--font-sans); font-size: 1.08rem; line-height: 1.6; color: var(--muted); max-width: 54ch; margin-top: 28px; }
+.hero .sub strong { color: var(--fg); font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; font-family: var(--font-sans); font-size: 0.95rem; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--fg); }
+.btn:hover { border-color: var(--ink); color: var(--ink); }
+.btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+/* Sections */
+section.sec { padding-block: 64px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.sec-head { display: grid; gap: 8px; margin-bottom: 40px; max-width: 62ch; }
+.eyebrow { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.sec-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.8rem, 3.6vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+
+/* Story + sidenote rows */
+.entry { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 17rem); gap: 8px 56px; padding-block: 32px; border-top: 1px solid var(--line); }
+.entry:first-of-type { border-top: 0; padding-top: 0; }
+.story { min-width: 0; max-width: 62ch; display: grid; gap: 10px; }
+.story h3 { font-family: var(--font-sans); font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+.story .hook { font-style: italic; color: var(--muted); font-size: 1.1rem; }
+.note {
+  min-width: 0; align-self: start; font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.5; color: var(--muted);
+  border-left: 2px solid var(--line); padding-left: 16px; display: grid; gap: 12px;
+  transition: border-color 0.2s;
+}
+.entry:hover .note, .entry:focus-within .note { border-left-color: var(--ink); }
+.note dl { margin: 0; display: grid; gap: 10px; }
+.note dt { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg); }
+.note dd { margin: 2px 0 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; list-style: none; margin: 4px 0 0; padding: 0; }
+.tags li { font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 7px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; color: var(--fg); }
+.status { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status.live { color: var(--ok); }
+.status.wip { color: var(--wip); }
+.status.done { color: var(--muted); }
+.note .go { font-weight: 500; color: var(--fg); text-decoration: none; }
+.note .go:hover { color: var(--ink); }
+
+/* Experience */
+.jobs { display: grid; }
+.job { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 4px 32px; padding-block: 22px; border-top: 1px solid var(--line); }
+.job:first-child { border-top: 0; padding-top: 0; }
+.job .when { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); padding-top: 5px; font-variant-numeric: tabular-nums; }
+.job h3 { font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; }
+.job h3 span { font-weight: 400; color: var(--muted); }
+.job p { max-width: 62ch; margin-top: 4px; }
+.skills { margin: 40px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px 40px; padding-top: 28px; border-top: 1px solid var(--line); font-family: var(--font-sans); font-size: 0.95rem; }
+.skills dt { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.skills dd { margin: 4px 0 0; color: var(--fg); line-height: 1.5; }
+.resume-cta { margin-top: 32px; display: flex; gap: 10px; flex-wrap: wrap; font-family: var(--font-sans); font-size: 0.95rem; }
+
+/* Writing */
+.writing-intro { max-width: 62ch; font-size: 1.25rem; line-height: 1.55; }
+.writing-intro em { color: var(--ink); }
+.pieces { list-style: none; padding: 0; margin: 36px 0 0; display: grid; gap: 0; max-width: 760px; }
+.pieces li a { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) auto; gap: 20px; align-items: baseline; padding-block: 18px; border-top: 1px solid var(--line); text-decoration: none; }
+.pieces .kind { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.pieces .t { font-size: 1.3rem; line-height: 1.3; }
+.pieces .arrow { font-family: var(--font-sans); color: var(--muted); }
+.pieces li a:hover .t, .pieces li a:hover .arrow { color: var(--ink); }
+
+/* Contact */
+.contact { display: grid; gap: 24px; }
+.contact p.big { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; letter-spacing: -0.015em; max-width: 20ch; }
+.copy { font-family: var(--font-mono); font-size: 0.85rem; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 11px 18px; cursor: pointer; justify-self: start; }
+.copy:hover { border-color: var(--ink); color: var(--ink); }
+
+footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-family: var(--font-sans); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* Placeholders still to fill in */
+.todo { color: var(--todo); border-bottom: 1px dashed var(--todo); }
+
+@media (max-width: 780px) {
+  .entry { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .job { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .job .when { padding-top: 0; }
+  .pieces li a { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; }
+  .pieces .kind { grid-column: 1 / -1; }
+  section.sec { padding-block: 48px; }
+}
+@media (max-width: 440px) {
+  .nav { gap: 14px; }
+  .nav a.opt { display: none; }
+}
+</style>
+
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="name" href="#top">Sarah Katz</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#writing" class="opt">Writing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero" aria-labelledby="h1">
+    <h1 id="h1">I write <del>code</del> <ins>software and sentences</ins>.</h1>
+    <p class="sub">I'm Sarah Katz, a <strong>full-stack engineer in Queens, New York</strong>. I graduated from the University of Chicago in 2026 with a B.S. with Honors in Computer Science and a B.A. in Creative Writing. I'm looking for a role with high ownership, where I solve real problems for users and build products that matter. I'm open to roles as a <strong>software engineer or technical product manager</strong>.</p>
+    <div class="actions">
+      <a class="btn primary" href="SarahKatz_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a class="btn" href="https://github.com/sarahkatz-creator" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/sarah-katz-00b8b2253/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="#contact">Email</a>
+    </div>
+  </section>
+
+  <section class="sec" id="projects" aria-labelledby="projects-h">
+    <div class="sec-head">
+      <span class="eyebrow">Projects</span>
+      <h2 id="projects-h">Things I've built on my own time. Each one started with a problem in my own life.</h2>
+    </div>
+
+    <article class="entry">
+      <div class="story">
+        <h3>Subway countdown clock</h3>
+        <p class="hook">A board of lights in my apartment that knows when my train is coming.</p>
+        <p>It shows the next R and M trains from 63 Dr–Rego Park toward Manhattan, and once a minute the arrivals slide away and the time slides in. On Friday evenings, Saturdays and holidays it also shows candle-lighting and havdalah times. It was my first hardware project: I'd never touched a Raspberry Pi before this.</p>
+      </div>
+      <aside class="note" aria-label="Details">
+        <dl>
+          <div><dt>Status</dt><dd><span class="status live">Running</span> · enclosure next</dd></div>
+          <div><dt>Hardware</dt><dd>Raspberry Pi 3 A+, 64×32 RGB LED matrix</dd></div>
+          <div><dt>Built with</dt><dd><ul class="tags"><li>Python</li><li>MTA GTFS-realtime</li><li>Hebcal API</li><li>systemd</li></ul></dd></div>
+        </dl>
+        <span class="go">Code available on request</span>
+      </aside>
+    </article>
+
+    <article class="entry">
+      <div class="story">
+        <h3>Receipt tracker</h3>
+        <p class="hook">Photograph a receipt, then ask about your spending in plain English.</p>
+        <p>An AI agent reads each receipt photo into a database, line by line. Then you can ask it things like "how much did we spend on groceries in August?" and get an answer. I built it with a collaborator as a web app and I'm now turning it into a phone app that a whole household can sign into.</p>
+      </div>
+      <aside class="note" aria-label="Details">
+        <dl>
+          <div><dt>Status</dt><dd><span class="status wip">Expanding</span> · mobile, multi-user</dd></div>
+          <div><dt>How it works</dt><dd>Claude vision reads the photo; line items go to Supabase; questions are answered over that table</dd></div>
+          <div><dt>Built with</dt><dd><ul class="tags"><li>React + Vite</li><li>Express</li><li>Claude API</li><li>Supabase</li></ul></dd></div>
+        </dl>
+        <span class="go">Code available on request</span>
+      </aside>
+    </article>
+
+  </section>
+
+  <section class="sec" id="experience" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <span class="eyebrow">Experience</span>
+      <h2 id="exp-h">Where I've shipped production code, and what else I've led.</h2>
+    </div>
+    <div class="jobs">
+      <div class="job">
+        <span class="when">Aug 2026 – now</span>
+        <div><h3>Almanac <span>· Software engineer (contract) · Brooklyn</span></h3>
+        <p>First engineer at an early-stage maritime monitoring startup, owning the computer vision pipeline end to end. I replaced an off-the-shelf detector with direct YOLO inference, an in-house multi-object tracker and an event manager that turns raw harbor footage into discrete vessel events. I built the service that matches camera tracks to ship transponder (AIS) data, narrowing about 444K candidate pairs to about 27K a day, and set up the company's first accuracy review. That baseline led to four measured fixes, one of which recovered 1,900+ dropped tracks.</p></div>
+      </div>
+      <div class="job">
+        <span class="when">Mar 2025 – Apr 2026</span>
+        <div><h3>KimbaAI <span>· Software engineer, part-time · Remote</span></h3>
+        <p>Led REST API integrations on Google Cloud Functions for onboarding and data pipelines, handling about 100 backfill and update requests a day. Shipped an iOS demo app in Swift used in fundraising, and wrote the monthly technical newsletter for 200+ investors and waitlist users.</p></div>
+      </div>
+      <div class="job">
+        <span class="when">Jun – Aug 2024</span>
+        <div><h3>Meritize <span>· Software developer intern · Frisco, TX</span></h3>
+        <p>Full-stack Java and Ruby on Rails work on loan origination and customer-facing workflows. Wrote unit, integration and end-to-end tests with RSpec, Capybara and JUnit, and queried MariaDB/MySQL for analytics and CTO reporting.</p></div>
+      </div>
+      <div class="job">
+        <span class="when">May 2025 – Jun 2026</span>
+        <div><h3>TechTeam, UChicago <span>· Elected board member</span></h3>
+        <p>Managed a portfolio of Chicago client organizations: outreach, scoping, and overseeing one or two technical projects a quarter from start to handoff, and mentoring project leads on stack choices.</p></div>
+      </div>
+      <div class="job">
+        <span class="when">Mar – Dec 2020</span>
+        <div><h3>2 Schools 1 Goal <span>· Founder · Cape Town</span></h3>
+        <p>When COVID closed schools, I raised over R70,000 to buy 20GB of mobile data for each of 108 students so they could keep learning remotely.</p></div>
+      </div>
+      <div class="job">
+        <span class="when">2026</span>
+        <div><h3>University of Chicago <span>· B.S. with Honors, Computer Science · B.A., Creative Writing</span></h3>
+        <p>GPA 3.75. Margaret C. Annan Undergraduate Award in Writing; People's Choice Award at the Tech Showcase.</p></div>
+      </div>
+    </div>
+    <dl class="skills">
+      <div><dt>Languages</dt><dd>Python, C++, Java, JavaScript, Swift, Ruby, HTML/CSS, TypeScript</dd></div>
+      <div><dt>Frameworks</dt><dd>React, Node.js, Flask, Ruby on Rails</dd></div>
+      <div><dt>AI / ML</dt><dd>Claude API, LangChain/LangGraph, MCP, GPT-4o Vision, Hugging Face Transformers, YOLO, object tracking</dd></div>
+      <div><dt>Data</dt><dd>MySQL, MariaDB, Google Cloud Platform, DuckDB, Parquet</dd></div>
+      <div><dt>Tools</dt><dd>Git/GitHub, Docker, Jenkins, Xcode, Figma</dd></div>
+    </dl>
+    <div class="resume-cta"><a class="btn primary" href="SarahKatz_Resume.pdf" target="_blank" rel="noopener">Open résumé (PDF)</a><a class="btn" href="https://www.linkedin.com/in/sarah-katz-00b8b2253/" target="_blank" rel="noopener">LinkedIn</a></div>
+  </section>
+
+  <section class="sec" id="writing" aria-labelledby="writing-h">
+    <div class="sec-head">
+      <span class="eyebrow">Writing</span>
+      <h2 id="writing-h">The other half of my degree.</h2>
+    </div>
+    <p class="writing-intro">My writing won the Margaret C. Annan Undergraduate Award at UChicago. I write profiles of people doing interesting work, and essays on old books, especially medieval ones like <em>Le Roman de Silence</em> and Chaucer. In both, I'm interested in how people make meaning out of what they're handed. Writing is also how I think through a product before I build it.</p>
+    <ul class="pieces">
+      <li><a href="#ADD-LINK"><span class="kind">Essay</span><span class="t todo">Title of an essay</span><span class="arrow">→</span></a></li>
+      <li><a href="#ADD-LINK"><span class="kind">Profile</span><span class="t todo">Title of a profile or reported piece</span><span class="arrow">→</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sec" id="contact" aria-labelledby="contact-h">
+    <div class="contact">
+      <span class="eyebrow" id="contact-h">Contact</span>
+      <p class="big">Hiring, or building something interesting? I'd love to hear about it.</p>
+      <button class="copy" id="copy-email" type="button" data-email="sarahkatz2001@gmail.com">sarahkatz2001@gmail.com · copy</button>
+    </div>
+  </section>
+
+  <footer><span>© 2026 Sarah Katz</span><span>Queens, New York · from Cape Town</span></footer>
+</main>
+
+<script>
+(function () {
+  const btn = document.getElementById('copy-email');
+  btn.addEventListener('click', () => {
+    const email = btn.dataset.email;
+    const selectText = () => { const r = document.createRange(); r.selectNodeContents(btn); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(() => { btn.textContent = 'Copied ' + email; setTimeout(() => { btn.textContent = email + ' · copy'; }, 2200); }).catch(selectText);
+    } else selectText();
+  });
+
+  // Highlight the section you're reading in the nav
+  const links = [...document.querySelectorAll('.nav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    secs.forEach(s => io.observe(s));
+  }
+})();
+</script>
+
+</body>
+</html>
