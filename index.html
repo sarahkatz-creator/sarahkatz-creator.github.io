@@ -7,6 +7,7 @@
 <meta property="og:title" content="Sarah Katz">
 <meta property="og:description" content="Sarah Katz is a full-stack engineer and writer in New York. Projects, experience, résumé and writing.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://sarahkatz.dev/sarah.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181c'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E">
 <title>Sarah Katz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,6 +92,21 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 .btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: clamp(32px, 6vw, 72px); align-items: center; }
+.hero-text { min-width: 0; }
+.degree { display: flex; flex-wrap: wrap; gap: 4px 0; margin-top: 22px; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 500; color: var(--fg); }
+.degree span:not(:last-child)::after { content: "·"; color: var(--ink); margin-inline: 10px; }
+.degree { margin-top: 0; }
+.edu { margin-top: 22px; display: grid; gap: 4px; padding-left: 14px; border-left: 2px solid var(--ink); }
+.honors { font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted); max-width: 60ch; }
+.hero .sub { margin-top: 18px; }
+.portrait { margin: 0; display: grid; gap: 10px; }
+.portrait img { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; background: var(--line); }
+.portrait figcaption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+@media (max-width: 780px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .portrait { order: -1; max-width: 220px; }
+}
 /* Sections */
 section.sec { padding-block: 64px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
 .sec-head { display: grid; gap: 8px; margin-bottom: 40px; max-width: 62ch; }
@@ -121,6 +137,12 @@ section.sec { padding-block: 64px; border-top: 1px solid var(--line); scroll-mar
 .status.done { color: var(--muted); }
 .note .go { font-weight: 500; color: var(--fg); text-decoration: none; }
 .note .go:hover { color: var(--ink); }
+
+.shots { display: grid; grid-template-columns: minmax(0, 1.478fr) minmax(0, 0.773fr); gap: 12px; margin-top: 10px; align-items: start; }
+.shots figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+.shots img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 6px; background: var(--line); }
+.shots figcaption { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+@media (max-width: 520px) { .shots { grid-template-columns: minmax(0, 1fr); } }
 
 /* Experience */
 .jobs { display: grid; }
@@ -187,14 +209,24 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
 
 <main class="wrap" id="top">
   <section class="hero" aria-labelledby="h1">
+    <div class="hero-text">
     <h1 id="h1">I write <del>code</del> <ins>software and sentences</ins>.</h1>
-    <p class="sub">I'm Sarah Katz, a <strong>full-stack engineer in Queens, New York</strong>. I graduated from the University of Chicago in 2026 with a B.S. with Honors in Computer Science and a B.A. in Creative Writing. I'm looking for a role with high ownership, where I solve real problems for users and build products that matter. I'm open to roles as a <strong>software engineer or technical product manager</strong>.</p>
+    <div class="edu">
+      <p class="degree"><span>University of Chicago</span><span>B.S. with Honors, Computer Science</span><span>B.A., Creative Writing</span></p>
+      <p class="honors">GPA 3.75. Margaret C. Annan Undergraduate Award in Writing; People's Choice Award at the Tech Showcase.</p>
+    </div>
+    <p class="sub">I'm Sarah Katz, a <strong>full-stack engineer in Queens, New York</strong>. I'm looking for a role with high ownership, where I solve real problems for users and build products that matter. I'm open to roles as a <strong>software engineer or technical product manager</strong>.</p>
     <div class="actions">
       <a class="btn primary" href="SarahKatz_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
       <a class="btn" href="https://github.com/sarahkatz-creator" target="_blank" rel="noopener">GitHub</a>
       <a class="btn" href="https://www.linkedin.com/in/sarah-katz-00b8b2253/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="#contact">Email</a>
     </div>
+    </div>
+    <figure class="portrait">
+      <img src="sarah.jpg" width="720" height="900" alt="Sarah Katz smiling, wearing a University of Chicago graduation stole">
+      <figcaption>Graduation, University of Chicago, June 2026</figcaption>
+    </figure>
   </section>
 
   <section class="sec" id="projects" aria-labelledby="projects-h">
@@ -208,6 +240,10 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
         <h3>Subway countdown clock</h3>
         <p class="hook">A board of lights in my apartment that knows when my train is coming.</p>
         <p>It shows the next R and M trains from 63 Dr–Rego Park toward Manhattan, and once a minute the arrivals slide away and the time slides in. On Friday evenings, Saturdays and holidays it also shows candle-lighting and havdalah times. It was my first hardware project: I'd never touched a Raspberry Pi before this.</p>
+        <div class="shots">
+          <figure><img src="clock-running.jpg" width="1400" height="947" alt="The LED clock on a desk showing the next Manhattan-bound trains on two lines, in minutes" loading="lazy"><figcaption>Next trains to Manhattan, in minutes</figcaption></figure>
+          <figure><img src="clock-build.jpg" width="900" height="1165" alt="The back of the LED panel, wired by ribbon cable and power leads to a Raspberry Pi with a matrix bonnet" loading="lazy"><figcaption>Behind the panel: the Pi, matrix bonnet and power</figcaption></figure>
+        </div>
       </div>
       <aside class="note" aria-label="Details">
         <dl>
@@ -231,7 +267,8 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
           <div><dt>How it works</dt><dd>Claude vision reads the photo; line items go to Supabase; questions are answered over that table</dd></div>
           <div><dt>Built with</dt><dd><ul class="tags"><li>React + Vite</li><li>Express</li><li>Claude API</li><li>Supabase</li></ul></dd></div>
         </dl>
-        <span class="go">Code available on request</span>
+        <a class="go" href="https://lnkd.in/p/eab5Bvgw" target="_blank" rel="noopener">Read the write-up on LinkedIn →</a>
+        <span>Code available on request</span>
       </aside>
     </article>
 
@@ -264,14 +301,14 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
         <p>Managed a portfolio of Chicago client organizations: outreach, scoping, and overseeing one or two technical projects a quarter from start to handoff, and mentoring project leads on stack choices.</p></div>
       </div>
       <div class="job">
+        <span class="when">Sep 2023 – Sep 2024</span>
+        <div><h3>Crew Team, UChicago <span>· Elected historian</span></h3>
+        <p>Led development of the team's digital archive, covering 15+ years of history and records. Built the backend in Java and Flask and the front end in React, Node.js, HTML and CSS.</p></div>
+      </div>
+      <div class="job">
         <span class="when">Mar – Dec 2020</span>
         <div><h3>2 Schools 1 Goal <span>· Founder · Cape Town</span></h3>
         <p>When COVID closed schools, I raised over R70,000 to buy 20GB of mobile data for each of 108 students so they could keep learning remotely.</p></div>
-      </div>
-      <div class="job">
-        <span class="when">2026</span>
-        <div><h3>University of Chicago <span>· B.S. with Honors, Computer Science · B.A., Creative Writing</span></h3>
-        <p>GPA 3.75. Margaret C. Annan Undergraduate Award in Writing; People's Choice Award at the Tech Showcase.</p></div>
       </div>
     </div>
     <dl class="skills">
