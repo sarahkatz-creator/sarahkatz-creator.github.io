@@ -232,7 +232,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
   <section class="sec" id="projects" aria-labelledby="projects-h">
     <div class="sec-head">
       <span class="eyebrow">Projects</span>
-      <h2 id="projects-h">Things I've built on my own time. Each one started with a problem in my own life.</h2>
+      <h2 id="projects-h">Things I've built, at home and at school.</h2>
     </div>
 
     <article class="entry">
@@ -268,6 +268,26 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 48px; font-famil
           <div><dt>Built with</dt><dd><ul class="tags"><li>React + Vite</li><li>Express</li><li>Claude API</li><li>Supabase</li></ul></dd></div>
         </dl>
         <a class="go" href="https://lnkd.in/p/eab5Bvgw" target="_blank" rel="noopener">Read the write-up on LinkedIn →</a>
+        <span>Code available on request</span>
+      </aside>
+    </article>
+
+    <article class="entry">
+      <div class="story">
+        <h3>Making the cost of care visible</h3>
+        <p class="hook">Describe your symptoms, and see what the visit is likely to cost you.</p>
+        <p>Patients walk into a doctor's office with symptoms but no way to know what they'll owe. With two classmates in AI Agents for Science, an elective at UChicago, I built a multi-agent pipeline that follows the whole path from symptoms to bill. A diagnostic agent turns free-text symptoms into ranked ICD-10 diagnoses. A procedure agent plans the likely procedures, finds their ICD-10-PCS codes with keyword and lexical search, and maps them to CPT/HCPCS billing codes. A billing agent then applies Medicare fee schedules and insurance terms like the deductible and coinsurance to project the patient's out-of-pocket cost.</p>
+        <p>Grounding the agents in real code catalogs mattered: retrieval-augmented mapping reached 74% top-3 accuracy, well above asking the model alone.</p>
+      </div>
+      <aside class="note" aria-label="Details">
+        <dl>
+          <div><dt>Status</dt><dd><span class="status done">Class project</span> · AI Agents for Science</dd></div>
+          <div><dt>Pipeline</dt><dd>Symptoms → ICD-10 diagnoses → ICD-10-PCS procedures → CPT/HCPCS → out-of-pocket cost</dd></div>
+          <div><dt>Results</dt><dd>Correct or relevant ICD-10 codes in 198 of 212 test cases; 74% top-3 accuracy mapping procedures to billing codes</dd></div>
+          <div><dt>Data</dt><dd>Medicare fee schedules, synthetic insurance data</dd></div>
+          <div><dt>Built with</dt><dd><ul class="tags"><li>Python</li><li>LLM agents</li><li>Retrieval (RAG)</li></ul></dd></div>
+        </dl>
+        <a class="go" href="cost-of-care-poster.pdf" target="_blank" rel="noopener">View the research poster (PDF) →</a>
         <span>Code available on request</span>
       </aside>
     </article>
